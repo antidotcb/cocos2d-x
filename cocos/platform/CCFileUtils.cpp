@@ -34,7 +34,11 @@ THE SOFTWARE.
 #include "platform/CCSAXParser.h"
 //#include "base/ccUtils.h"
 
+#if defined(__MINGW32__)
+#include "tinyxml2.h"
+#else
 #include "tinyxml2/tinyxml2.h"
+#endif
 #ifdef MINIZIP_FROM_SYSTEM
 #include <minizip/unzip.h>
 #else // from our embedded sources
@@ -677,7 +681,7 @@ FileUtils::Status FileUtils::getContents(const std::string& filename, ResizableB
         return Status::ReadFailed;
     }
 
-    if (!(statBuf.st_mode & S_IFREG)) { 
+    if (!(statBuf.st_mode & S_IFREG)) {
         return Status::NotRegularFileType;
     }
 
@@ -743,7 +747,7 @@ unsigned char* FileUtils::getFileDataFromZip(const std::string& zipFilePath, con
 
 void FileUtils::writeValueMapToFile(ValueMap dict, const std::string& fullPath, std::function<void(bool)> callback) const
 {
-    
+
     performOperationOffthread([fullPath](const ValueMap& dictIn) -> bool {
         return FileUtils::getInstance()->writeValueMapToFile(dictIn, fullPath);
     }, std::move(callback), std::move(dict));
@@ -759,7 +763,7 @@ void FileUtils::writeValueVectorToFile(ValueVector vecData, const std::string& f
 std::string FileUtils::getNewFilename(const std::string &filename) const
 {
     std::string newFileName;
-    
+
     DECLARE_GUARD;
 
     // in Lookup Filename dictionary ?
@@ -804,7 +808,7 @@ std::string FileUtils::getPathForDirectory(const std::string &dir, const std::st
 
 std::string FileUtils::fullPathForFilename(const std::string &filename) const
 {
-    
+
     DECLARE_GUARD;
 
     if (filename.empty())
@@ -883,7 +887,7 @@ std::string FileUtils::fullPathForDirectory(const std::string &dir) const
     }
 
     const std::string newdirname( getNewFilename(longdir) );
-    
+
     for (const auto& searchIt : _searchPathArray)
     {
         for (const auto& resolutionIt : _searchResolutionsOrderArray)
@@ -950,7 +954,7 @@ void FileUtils::setSearchResolutionsOrder(const std::vector<std::string>& search
 
 void FileUtils::addSearchResolutionsOrder(const std::string &order,const bool front)
 {
-    
+
     DECLARE_GUARD;
 
     std::string resOrder = order;
@@ -1141,13 +1145,13 @@ void FileUtils::isFileExist(const std::string& filename, std::function<void(bool
 
 bool FileUtils::isAbsolutePath(const std::string& path) const
 {
-    return (path[0] == '/');
+    return (path[0] == '/' || (path.size() >= 2 && path[1] == ':'));
 }
 
 bool FileUtils::isDirectoryExist(const std::string& dirPath) const
 {
     CCASSERT(!dirPath.empty(), "Invalid path");
-    
+
     DECLARE_GUARD;
 
     if (isAbsolutePath(dirPath))
@@ -1194,7 +1198,7 @@ void FileUtils::renameFile(const std::string &path, const std::string &oldname, 
     performOperationOffthread([path, oldname, name]() -> bool {
         return FileUtils::getInstance()->renameFile(path, oldname, name);
     }, std::move(callback));
-                                
+
 }
 
 void FileUtils::renameFile(const std::string &oldfullpath, const std::string &newfullpath, std::function<void(bool)> callback) const
@@ -1270,7 +1274,9 @@ bool FileUtils::renameFile(const std::string &path, const std::string &oldname, 
 
 std::string FileUtils::getSuitableFOpen(const std::string& filenameUtf8) const
 {
+#if !defined(__MINGW32__)
     CCASSERT(false, "getSuitableFOpen should be override by platform FileUtils");
+#endif
     return filenameUtf8;
 }
 
@@ -1383,10 +1389,10 @@ namespace
     int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
     {
         int rv = remove(fpath);
-        
+
         if (rv)
             perror(fpath);
-        
+
         return rv;
     }
 #endif

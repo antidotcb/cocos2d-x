@@ -44,7 +44,7 @@ find_library(FMOD_LIBRARY NAMES fmod fmod64
 set(FMOD_INCLUDE_DIRS "${FMOD_INCLUDE_DIR}")
 set(FMOD_LIBRARIES "${FMOD_LIBRARY}")
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(FMOD DEFAULT_MSG FMOD_LIBRARIES FMOD_INCLUDE_DIRS)
 
 mark_as_advanced(FMOD_INCLUDE_DIR FMOD_LIBRARY FMOD_INCLUDE_DIRS FMOD_LIBRARIES)

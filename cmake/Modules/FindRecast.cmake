@@ -18,7 +18,7 @@ find_path(RECAST_INCLUDE_DIR
 	PATH_SUFFIXES include
 )
 
-find_library(RECAST_LIBRARY 
+find_library(RECAST_LIBRARY
 	NAMES Recast
 	PATH_SUFFIXES lib
 )
@@ -26,7 +26,7 @@ find_library(RECAST_LIBRARY
 set(RECAST_INCLUDE_DIRS "${RECAST_INCLUDE_DIR}")
 set(RECAST_LIBRARIES "${RECAST_LIBRARY}")
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(RECAST DEFAULT_MSG RECAST_LIBRARIES RECAST_INCLUDE_DIRS)
 
 mark_as_advanced(RECAST_INCLUDE_DIR RECAST_LIBRARY)

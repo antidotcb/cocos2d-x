@@ -103,7 +103,7 @@ if(PKG_CONFIG_FOUND)
 
     endif()
     set(GLFW3_FOUND 1)
-    
+
   endif()
 
   # Restore global stuff
@@ -129,7 +129,7 @@ if(NOT GLFW3_FOUND)
     /opt
   )
 
-  find_library(GLFW3_LIBRARY 
+  find_library(GLFW3_LIBRARY
     NAMES glfw3 libglfw3 glfw
     HINTS
     ENV GLFW3_DIR
@@ -148,7 +148,7 @@ if(NOT GLFW3_FOUND)
   set(GLFW3_INCLUDE_DIRS "${GLFW3_INCLUDE_DIR}")
   set(GLFW3_LIBRARIES "${GLFW3_LIBRARY}")
 
-  include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+  #include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
   find_package_handle_standard_args(GLFW3 DEFAULT_MSG GLFW3_LIBRARIES GLFW3_INCLUDE_DIR)
 
 endif()

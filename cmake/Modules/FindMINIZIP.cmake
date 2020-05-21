@@ -53,7 +53,7 @@ find_library(MINIZIP_LIBRARY NAMES minizip libminizip
 set(MINIZIP_INCLUDE_DIRS "${MINIZIP_INCLUDE_DIR}")
 set(MINIZIP_LIBRARIES "${MINIZIP_LIBRARY}")
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(MINIZIP DEFAULT_MSG MINIZIP_LIBRARIES MINIZIP_INCLUDE_DIRS)
 
 mark_as_advanced(MINIZIP_INCLUDE_DIR MINIZIP_LIBRARY)

@@ -42,7 +42,7 @@ FIND_PATH(WEBP_INCLUDE_DIR decode.h
   /opt
 )
 
-FIND_LIBRARY(WEBP_LIBRARY 
+FIND_LIBRARY(WEBP_LIBRARY
   NAMES webp libwebp
   HINTS
   ENV WEBP_DIR
@@ -61,8 +61,8 @@ FIND_LIBRARY(WEBP_LIBRARY
 set(WEBP_INCLUDE_DIRS "${WEBP_INCLUDE_DIR}")
 set(WEBP_LIBRARIES "${WEBP_LIBRARY}")
 
-INCLUDE(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
-# handle the QUIETLY and REQUIRED arguments and set WEBP_FOUND to TRUE if 
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+# handle the QUIETLY and REQUIRED arguments and set WEBP_FOUND to TRUE if
 # all listed variables are TRUE
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(WebP DEFAULT_MSG WEBP_LIBRARIES WEBP_INCLUDE_DIR)
 

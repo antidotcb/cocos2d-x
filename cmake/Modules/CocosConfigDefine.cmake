@@ -50,12 +50,12 @@ define_property(TARGET
     PROPERTY CC_JS_DEPEND
     BRIEF_DOCS "cocos2d js depend libs"
     FULL_DOCS "use to save depend libs of cocos2d js project"
-) 
+)
 define_property(TARGET
     PROPERTY CC_LUA_DEPEND
     BRIEF_DOCS "cocos2d lua depend libs"
     FULL_DOCS "use to save depend libs of cocos2d lua project"
-) 
+)
 
 # check c++ standard
 set(CMAKE_C_STANDARD 99)
@@ -75,6 +75,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
         else()
             message(FATAL_ERROR "using Windows MSVC generate cocos2d-x project, MSVC_VERSION:${MSVC_VERSION} lower than needed")
         endif()
+    elseif(MINGW)
+        message(STATUS "* MinGW detected *")
     else()
         message(FATAL_ERROR "please using Windows MSVC compile cocos2d-x project, support other compile tools not yet")
     endif()
@@ -93,7 +95,7 @@ endif()
         target_compile_definitions(${target} PUBLIC ANDROID)
         target_compile_definitions(${target} PUBLIC USE_FILE32API)
     elseif(WINDOWS)
-        target_compile_definitions(${target} 
+        target_compile_definitions(${target}
             PUBLIC WIN32
             PUBLIC _WIN32
             PUBLIC _WINDOWS
@@ -103,7 +105,7 @@ endif()
             PUBLIC _SCL_SECURE_NO_WARNINGS
         )
         if(BUILD_SHARED_LIBS)
-            target_compile_definitions(${target} 
+            target_compile_definitions(${target}
                 PUBLIC _USRDLL
                 PUBLIC _EXPORT_DLL_
                 PUBLIC _USEGUIDLL

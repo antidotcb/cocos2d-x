@@ -66,7 +66,9 @@ bool FileUtilsLinux::init()
     DECLARE_GUARD;
     // get application path
     char fullpath[256] = {0};
-    ssize_t length = readlink("/proc/self/exe", fullpath, sizeof(fullpath)-1);
+// TODO:ssize_t length = readlink("/proc/self/exe", fullpath, sizeof(fullpath)-1);
+    getcwd(fullpath, sizeof(fullpath)-1);
+    ssize_t length = 255;
 
     if (length <= 0) {
         return false;
@@ -81,13 +83,14 @@ bool FileUtilsLinux::init()
     const char* xdg_config_path = getenv("XDG_CONFIG_HOME");
     std::string xdgConfigPath;
     if (xdg_config_path == NULL) {
-        xdgConfigPath = getenv("HOME");
-        xdgConfigPath += "/.config";
+// TODO:xdgConfigPath = getenv("HOME");
+        xdgConfigPath += "./.config";
     } else {
         xdgConfigPath  = xdg_config_path;
     }
     _writablePath = xdgConfigPath;
-    _writablePath += appPath.substr(appPath.find_last_of('/'));
+// TODO:_writablePath += appPath.substr(appPath.find_last_of('/'));
+    _writablePath += appPath.substr(appPath.find_last_of('\\'));
     _writablePath += "/";
 
     return FileUtils::init();
@@ -99,7 +102,11 @@ string FileUtilsLinux::getWritablePath() const
     struct stat st;
     stat(_writablePath.c_str(), &st);
     if (!S_ISDIR(st.st_mode)) {
+#if defined(__MINGW32__)
+        mkdir(_writablePath.c_str());
+#else
         mkdir(_writablePath.c_str(), 0744);
+#endif
     }
 
     return _writablePath;

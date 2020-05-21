@@ -18,7 +18,7 @@ find_path(XXHASH_INCLUDE_DIR
 	PATH_SUFFIXES include include/xxhash
 )
 
-find_library(XXHASH_LIBRARY 
+find_library(XXHASH_LIBRARY
 	NAMES xxhash
 	PATH_SUFFIXES lib
 )
@@ -26,7 +26,7 @@ find_library(XXHASH_LIBRARY
 set(XXHASH_INCLUDE_DIRS "${XXHASH_INCLUDE_DIR}")
 set(XXHASH_LIBRARIES "${XXHASH_LIBRARY}")
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(XXHASH DEFAULT_MSG XXHASH_LIBRARIES XXHASH_INCLUDE_DIRS)
 
 mark_as_advanced(XXHASH_INCLUDE_DIR XXHASH_LIBRARY)

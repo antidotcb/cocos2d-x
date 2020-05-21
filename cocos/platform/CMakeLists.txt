@@ -31,7 +31,7 @@ if(ANDROID)
         platform/android/CCFileUtils-android.cpp
         platform/android/CCEnhanceAPI-android.cpp
     )
-elseif(WINDOWS)
+elseif(WINDOWS AND NOT MINGW)
     set(COCOS_PLATFORM_SPECIFIC_HEADER
         platform/win32/compat/stdint.h
         platform/win32/CCApplication-win32.h
@@ -104,7 +104,7 @@ elseif(APPLE)
             )
     endif()
 
-elseif(LINUX)
+elseif(LINUX OR MINGW)
 
     if(NOT CMAKE_CROSSCOMPILING)
         include_directories(

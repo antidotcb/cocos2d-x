@@ -18,7 +18,7 @@ find_path(FLATBUFFERS_INCLUDE_DIR
 	PATH_SUFFIXES include include/flatbuffers
 )
 
-find_library(FLATBUFFERS_LIBRARY 
+find_library(FLATBUFFERS_LIBRARY
 	NAMES flatbuffers
 	PATH_SUFFIXES lib
 )
@@ -26,7 +26,7 @@ find_library(FLATBUFFERS_LIBRARY
 set(FLATBUFFERS_INCLUDE_DIRS "${FLATBUFFERS_INCLUDE_DIR}")
 set(FLATBUFFERS_LIBRARIES "${FLATBUFFERS_LIBRARY}")
 
-include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(FLATBUFFERS DEFAULT_MSG FLATBUFFERS_LIBRARIES FLATBUFFERS_INCLUDE_DIRS)
 
 mark_as_advanced(FLATBUFFERS_INCLUDE_DIR FLATBUFFERS_LIBRARY)

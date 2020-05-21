@@ -9,7 +9,7 @@
 # ::
 #
 #   CHIPMUNK_LIBRARIES, the library to link against
-#   CHIPMUNK_FOUND, if false, do not try to link to Chipmunk 
+#   CHIPMUNK_FOUND, if false, do not try to link to Chipmunk
 #   CHIPMUNK_INCLUDE_DIRS, where to find headers.
 #   This is the concatenation of the paths:
 #   CHIPMUNK_INCLUDE_DIR
@@ -71,8 +71,8 @@ IF(CHIPMUNK_LIBRARY)
   ENDIF(UNIX AND NOT APPLE)
 ENDIF(CHIPMUNK_LIBRARY)
 
-INCLUDE(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
-# handle the QUIETLY and REQUIRED arguments and set CHIPMUNK_FOUND to TRUE if 
+#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
+# handle the QUIETLY and REQUIRED arguments and set CHIPMUNK_FOUND to TRUE if
 # all listed variables are TRUE
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(Chipmunk DEFAULT_MSG CHIPMUNK_LIBRARIES CHIPMUNK_INCLUDE_DIR)
 
