@@ -121,7 +121,7 @@ namespace ui {
                 0,
                 0,   // set size in WM_SIZE message
                 s_hwndCocos,         // parent window
-                (HMENU)s_editboxChildID,   // edit control ID
+                reinterpret_cast<HMENU>(s_editboxChildID),   // edit control ID
                 s_hInstance,
                 this);        // pointer not needed
 
