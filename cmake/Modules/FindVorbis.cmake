@@ -5,7 +5,7 @@
 #  VORBIS_LIBRARIES    - List of libraries when using vorbis(file).
 #  VORBIS_FOUND        - True if vorbis found.
 
-find_package(Ogg)
+find_package(OGG)
 if(OGG_FOUND)
 	find_path(VORBIS_INCLUDE_DIR vorbis/vorbisfile.h)
 	# MSVC built vorbis may be named vorbis_static
