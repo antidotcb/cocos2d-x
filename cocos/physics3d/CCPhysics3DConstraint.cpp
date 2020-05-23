@@ -313,7 +313,11 @@ bool Physics3DHingeConstraint::getEnableAngularMotor() const
 }
 float Physics3DHingeConstraint::getMotorTargetVelosity() const
 {
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    return static_cast<btHingeConstraint*>(_constraint)->getMotorTargetVelosity();
+#else
     return static_cast<btHingeConstraint*>(_constraint)->getMotorTargetVelocity();
+#endif
 }
 float Physics3DHingeConstraint::getMaxMotorImpulse() const
 {
