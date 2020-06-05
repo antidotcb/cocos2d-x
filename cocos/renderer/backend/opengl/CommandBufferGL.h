@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
- 
+
 #pragma once
 
 #include "../Macros.h"
@@ -54,7 +54,7 @@ class CommandBufferGL final : public CommandBuffer
 public:
     CommandBufferGL();
     ~CommandBufferGL();
-    
+
     /// @name Setters & Getters
     /**
      * @brief Indicate the begining of a frame
@@ -72,7 +72,7 @@ public:
      * @param renderPipeline An object that contains the graphics functions and configuration state used in a render pass.
      */
     virtual void setRenderPipeline(RenderPipeline* renderPipeline) override;
-    
+
     /**
      * Fixed-function state
      * @param x The x coordinate of the upper-left corner of the viewport.
@@ -132,7 +132,7 @@ public:
      * @see `drawArrays(PrimitiveType primitiveType, unsigned int start,  unsigned int count)`
     */
     virtual void drawElements(PrimitiveType primitiveType, IndexFormat indexType, std::size_t count, std::size_t offset) override;
-    
+
     /**
      * Do some resources release.
      */
@@ -142,13 +142,13 @@ public:
      * Present a drawable and commit a command buffer so it can be executed as soon as possible.
      */
     virtual void endFrame() override;
-    
+
     /**
      * Fixed-function state
      * @param lineWidth Specifies the width of rasterized lines.
      */
     virtual void setLineWidth(float lineWidth) override;
-    
+
     /**
      * Fixed-function state
      * @param x, y Specifies the lower left corner of the scissor box
@@ -177,7 +177,7 @@ private:
         unsigned int w = 0;
         unsigned int h = 0;
     };
-    
+
     void prepareDrawing() const;
     void bindVertexBuffer(ProgramGL* program) const;
     void setUniforms(ProgramGL* program) const;
@@ -193,7 +193,7 @@ private:
 
     GLint _defaultFBO = 0;  // The value gets from glGetIntegerv, so need to use GLint
     GLuint _currentFBO = 0;
-    BufferGL* _vertexBuffer;
+    BufferGL* _vertexBuffer = nullptr;
     ProgramState* _programState = nullptr;
     BufferGL* _indexBuffer = nullptr;
     RenderPipelineGL* _renderPipeline = nullptr;

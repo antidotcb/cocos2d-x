@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
- 
+
 #include "DeviceGL.h"
 #include "RenderPipelineGL.h"
 #include "BufferGL.h"
@@ -38,7 +38,7 @@ Device* Device::getInstance()
 {
     if (!_instance)
         _instance = new (std::nothrow) DeviceGL();
-    
+
     return _instance;
 }
 
@@ -84,7 +84,11 @@ TextureBackend* DeviceGL::newTexture(const TextureDescriptor& descriptor)
 
 ShaderModule* DeviceGL::newShaderModule(ShaderStage stage, const std::string& source)
 {
-    return new (std::nothrow) ShaderModuleGL(stage, source);
+    auto* ret = new (std::nothrow) ShaderModuleGL(stage, source);
+    if (ret != nullptr) {
+        ret->autorelease();
+    }
+    return ret;
 }
 
 DepthStencilState* DeviceGL::createDepthStencilState(const DepthStencilDescriptor& descriptor)
@@ -92,7 +96,7 @@ DepthStencilState* DeviceGL::createDepthStencilState(const DepthStencilDescripto
     auto ret = new (std::nothrow) DepthStencilStateGL(descriptor);
     if (ret)
         ret->autorelease();
-    
+
     return ret;
 }
 

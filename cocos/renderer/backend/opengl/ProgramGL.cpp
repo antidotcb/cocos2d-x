@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
- 
+
 #include "ProgramGL.h"
 #include "ShaderModuleGL.h"
 #include "renderer/backend/Types.h"
@@ -106,23 +106,23 @@ void ProgramGL::compileProgram()
 {
     if (_vertexShaderModule == nullptr || _fragmentShaderModule == nullptr)
         return;
-    
+
     auto vertShader = _vertexShaderModule->getShader();
     auto fragShader = _fragmentShaderModule->getShader();
-    
+
     assert (vertShader != 0 && fragShader != 0);
     if (vertShader == 0 || fragShader == 0)
         return;
-    
+
     _program = glCreateProgram();
     if (!_program)
         return;
-    
+
     glAttachShader(_program, vertShader);
     glAttachShader(_program, fragShader);
-    
+
     glLinkProgram(_program);
-    
+
     GLint status = 0;
     glGetProgramiv(_program, GL_LINK_STATUS, &status);
     if (GL_FALSE == status)
@@ -187,7 +187,7 @@ bool ProgramGL::getAttributeLocation(const std::string& attributeName, unsigned 
         CCLOG("Cocos2d: %s: can not find vertex attribute of %s", __FUNCTION__, attributeName.c_str());
         return false;
     }
-    
+
     location = GLuint(loc);
     return true;
 }
@@ -235,12 +235,12 @@ void ProgramGL::computeUniformInfos()
 {
     if (!_program)
     return;
-    
+
     GLint numOfUniforms = 0;
     glGetProgramiv(_program, GL_ACTIVE_UNIFORMS, &numOfUniforms);
     if (!numOfUniforms)
     return;
-    
+
 #define MAX_UNIFORM_NAME_LENGTH 256
     UniformInfo uniform;
     GLint length = 0;
@@ -252,7 +252,7 @@ void ProgramGL::computeUniformInfos()
     {
         glGetActiveUniform(_program, i, MAX_UNIFORM_NAME_LENGTH, &length, &uniform.count, &uniform.type, uniformName);
         uniformName[length] = '\0';
-        
+
         if (length > 3)
         {
             char* c = strrchr(uniformName, '[');
@@ -332,7 +332,8 @@ int ProgramGL::getOriginalLocation(int location) const
 
 const UniformInfo& ProgramGL::getActiveUniformInfo(ShaderStage stage, int location) const
 {
-    return std::move(UniformInfo{});
+    static UniformInfo info;
+    return info;
 }
 
 const std::unordered_map<std::string, UniformInfo>& ProgramGL::getAllActiveUniformInfo(ShaderStage stage) const
