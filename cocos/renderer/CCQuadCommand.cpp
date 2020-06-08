@@ -66,7 +66,7 @@ void QuadCommand::reIndex(int indicesCount)
         indicesCount *= 1.25;
         indicesCount = std::min(indicesCount, 65536);
 
-        CCLOG("cocos2d: QuadCommand: resizing index size from [%d] to [%d]", __indexCapacity, indicesCount);
+        // TODO(dbilyk): CCLOG("cocos2d: QuadCommand: resizing index size from [%d] to [%d]", __indexCapacity, indicesCount);
 
         _ownedIndices.push_back(__indices);
         __indices = new (std::nothrow) uint16_t[indicesCount];
@@ -90,7 +90,7 @@ void QuadCommand::init(float globalOrder, Texture2D *texture, const BlendFunc& b
 {
     if (quadCount * 6 > _indexSize)
         reIndex((int)quadCount*6);
-    
+
     Triangles triangles;
     triangles.verts = &quads->tl;
     triangles.vertCount = (int)quadCount * 4;

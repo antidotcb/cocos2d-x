@@ -294,9 +294,9 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     glfwWindowHint(GLFW_ALPHA_BITS,_glContextAttrs.alphaBits);
     glfwWindowHint(GLFW_DEPTH_BITS,_glContextAttrs.depthBits);
     glfwWindowHint(GLFW_STENCIL_BITS,_glContextAttrs.stencilBits);
-    
+
     glfwWindowHint(GLFW_SAMPLES, _glContextAttrs.multisamplingCount);
-    
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     // Don't create gl context.
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -357,7 +357,7 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     setFrameSize(rect.size.width, rect.size.height);
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
-    
+
     // check OpenGL version at first
     const GLubyte* glVersion = glGetString(GL_VERSION);
 
@@ -375,7 +375,7 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
 
     // Enable point size by default.
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-    
+
     if(_glContextAttrs.multisamplingCount > 0)
         glEnable(GL_MULTISAMPLE);
 
@@ -403,13 +403,13 @@ bool GLViewImpl::initWithFullscreen(const std::string &viewname, const GLFWvidmo
     _monitor = monitor;
     if (nullptr == _monitor)
         return false;
-    
+
     //These are soft constraints. If the video mode is retrieved at runtime, the resulting window and context should match these exactly. If invalid attribs are passed (eg. from an outdated cache), window creation will NOT fail but the actual window/context may differ.
     glfwWindowHint(GLFW_REFRESH_RATE, videoMode.refreshRate);
     glfwWindowHint(GLFW_RED_BITS, videoMode.redBits);
     glfwWindowHint(GLFW_BLUE_BITS, videoMode.blueBits);
     glfwWindowHint(GLFW_GREEN_BITS, videoMode.greenBits);
-    
+
     return initWithRect(viewname, Rect(0, 0, (float)videoMode.width, (float)videoMode.height), 1.0f, false);
 }
 
@@ -518,7 +518,7 @@ void GLViewImpl::setCursorVisible( bool isVisible )
 {
     if( _mainWindow == NULL )
         return;
-    
+
     if( isVisible )
         glfwSetInputMode(_mainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     else
@@ -732,7 +732,7 @@ void GLViewImpl::onGLFWMouseCallBack(GLFWwindow* /*window*/, int button, int act
             }
         }
     }
-    
+
     //Because OpenGL and cocos2d-x uses different Y axis, we need to convert the coordinate here
     float cursorX = (_mouseX - _viewPortRect.origin.x) / _scaleX;
     float cursorY = (_viewPortRect.origin.y + _viewPortRect.size.height - _mouseY) / _scaleY;
@@ -775,7 +775,7 @@ void GLViewImpl::onGLFWMouseMoveCallBack(GLFWwindow* window, double x, double y)
         intptr_t id = 0;
         this->handleTouchesMove(1, &id, &_mouseX, &_mouseY);
     }
-    
+
     //Because OpenGL and cocos2d-x uses different Y axis, we need to convert the coordinate here
     float cursorX = (_mouseX - _viewPortRect.origin.x) / _scaleX;
     float cursorY = (_viewPortRect.origin.y + _viewPortRect.size.height - _mouseY) / _scaleY;
@@ -1018,7 +1018,7 @@ bool GLViewImpl::initGlew()
 
     if (GLEW_ARB_vertex_shader && GLEW_ARB_fragment_shader)
     {
-        log("Ready for GLSL");
+        // TODO(dbilyk): log("Ready for GLSL");
     }
     else
     {
@@ -1027,7 +1027,7 @@ bool GLViewImpl::initGlew()
 
     if (glewIsSupported("GL_VERSION_2_0"))
     {
-        log("Ready for OpenGL 2.0");
+        // TODO(dbilyk): log("Ready for OpenGL 2.0");
     }
     else
     {
